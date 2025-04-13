@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I LOVE YOU - Hacker Style</title>
+  <style>
+    body {
+      background-color: black;
+      color: hotpink;
+      font-family: 'Courier New', Courier, monospace;
+      overflow: hidden;
+      margin: 0;
+    }
+    #ascii {
+      white-space: pre;
+      text-align: center;
+      font-size: 12px;
+      margin-top: 10vh;
+      z-index: 1;
+      position: relative;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+  <div id="ascii">
+    <pre>
+
+ /$$$$$$       /$$        /$$$$$$  /$$    /$$ /$$$$$$$$       /$$     /$$ /$$$$$$  /$$   /$$
+|_  $$_/      | $$       /$$__  $$| $$   | $$| $$_____/      |  $$   /$$//$$__  $$| $$  | $$
+  | $$        | $$      | $$  \ $$| $$   | $$| $$             \  $$ /$$/| $$  \ $$| $$  | $$
+  | $$        | $$      | $$  | $$|  $$ / $$/| $$$$$           \  $$$$/ | $$  | $$| $$  | $$
+  | $$        | $$      | $$  | $$ \  $$ $$/ | $$__/            \  $$/  | $$  | $$| $$  | $$
+  | $$        | $$      | $$  | $$  \  $$$/  | $$                | $$   | $$  | $$| $$  | $$
+ /$$$$$$      | $$$$$$$$|  $$$$$$/   \  $/   | $$$$$$$$          | $$   |  $$$$$$/|  $$$$$$/
+|______/      |________/ \______/     \_/    |________/          |__/    \______/  \______/ 
+                                                                                           
+                                                                                           
+
+  __  ____     __   _____ _    _ _______ _____ ______ 
+ |  \/  \ \   / /  / ____| |  | |__   __|_   _|  ____|
+ | \  / |\ \_/ /  | |    | |  | |  | |    | | | |__   
+ | |\/| | \   /   | |    | |  | |  | |    | | |  __|  
+ | |  | |  | |    | |____| |__| |  | |   _| |_| |____ 
+ |_|  |_|  |_|     \_____|\____/   |_|  |_____|______|
+                                                      
+                                                      
+
+    _______   .---.  .---..-./`) ,---.   .--.,---.   .--.   ____    ,---.    ,---.,---.    ,---.   ____     
+   /   __  \  |   |  |_ _|\ .-.')|    \  |  ||    \  |  | .'  __ `. |    \  /    ||    \  /    | .'  __ `.  
+  | ,_/  \__) |   |  ( ' )/ `-' \|  ,  \ |  ||  ,  \ |  |/   '  \  \|  ,  \/  ,  ||  ,  \/  ,  |/   '  \  \ 
+,-./  )       |   '-(_{;}_)`-'`"`|  |\_ \|  ||  |\_ \|  ||___|  /  ||  |\_   /|  ||  |\_   /|  ||___|  /  | 
+\  '_ '`)     |      (_,_) .---. |  _( )_\  ||  _( )_\  |   _.-`   ||  _( )_/ |  ||  _( )_/ |  |   _.-`   | 
+ > (_)  )  __ | _ _--.   | |   | | (_ o _)  || (_ o _)  |.'   _    || (_ o _) |  || (_ o _) |  |.'   _    | 
+(  .  .-'_/  )|( ' ) |   | |   | |  (_,_)/\ ||  (_,_)/\ ||  _( )_  ||  (_,_)  |  ||  (_,_)  |  ||  _( )_  | 
+ `-'`-'     / (_{;}_)|   | |   | |  |    |  ||  |    |  |\ (_ o _) /|  |      |  ||  |      |  |\ (_ o _) / 
+   `._____.'  '(_,_) '---' '---' '--'    '--''--'    '--' '.(_,_).' '--'      '--''--'      '--' '.(_,_).'  
+                                                                                                            
+
+    </pre>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const letters = '10101010101010101010101'.split('');
+    const fontSize = 14;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = Array(columns).fill(1);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = 'hotpink';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 33);
+  </script>
+</body>
+</html>
